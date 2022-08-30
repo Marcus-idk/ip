@@ -1,3 +1,4 @@
+import java.awt.font.NumericShaper;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -23,6 +24,8 @@ public class Duke {
                         unMarkTask(index, taskList);
                     } else if (s.trim().equals("list")) {
                         printTaskList(taskList);
+                    } else if (splitBySpace[0].equals("delete")) {
+                        deleteTask(splitBySpace[1], taskList);
                     } else {
                         addToTaskList(s, taskList);
                     }
@@ -33,9 +36,9 @@ public class Duke {
                 System.out.println("_________________________");
             } catch (NumberFormatException e) {
                 System.out.println("_________________________");
-                System.out.println("Mark commands always come with an index");
+                System.out.println("Your command must come with an index");
                 System.out.println("_________________________");
-            } catch (markIndexOutOfBoundsException e) {
+            } catch (markIndexOutOfBoundsException | deleteIndexOutOfBoundsException e) {
                 System.out.println("_________________________");
                 System.out.println(e.getMessage());
                 System.out.println("_________________________");
@@ -92,9 +95,13 @@ public class Duke {
     }
     public static void printTaskList(ArrayList<Task> list) {
         System.out.println("_________________________");
-        System.out.println("Take a look at ur list dawg");
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(i + "." + list.get(i).getDescription());
+        if (list.size() == 0) {
+            System.out.println("Ur list's empty lmao");
+        } else {
+            System.out.println("Take a look at ur list dawg");
+            for (int i = 0; i < list.size(); i++) {
+                System.out.println(i + "." + list.get(i).getDescription());
+            }
         }
         System.out.println("_________________________");
     }
@@ -122,5 +129,18 @@ public class Duke {
             result = result + split[i];
         }
         return "(" + result + ")";
+    }
+    public static void deleteTask(String str, ArrayList<Task> list) throws deleteIndexOutOfBoundsException, NumberFormatException {
+        int index = Integer.parseInt(str);
+        if (index >= list.size() || index < 0) {
+            throw new deleteIndexOutOfBoundsException("Delete index is out of bounds");
+        } else {
+            String s = list.get(index).getDescription();
+            list.remove(index);
+            System.out.println("_________________________");
+            System.out.println("why dahell u delete " + s);
+            System.out.println("Theres " + list.size() + " tasks left LOL");
+            System.out.println("_________________________");
+        }
     }
 }
