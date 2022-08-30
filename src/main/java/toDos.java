@@ -4,10 +4,6 @@ public class toDos extends Task {
     }
     @Override
     public String getDescription() {
-        if (super.isMarked()) {
-            return "[T] [X] " + super.getName();
-        } else {
-            return "[T] [ ] " + super.getName();
-        }
+        return "[T]" + super.getDescription();
     }
 }
