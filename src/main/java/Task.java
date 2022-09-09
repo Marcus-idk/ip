@@ -6,7 +6,7 @@ public class Task {
         this.marked = false;
     }
     public void markTask() {
-        this.marked = true;
+            this.marked = true;
     }
     public void unMarkTask() {
         this.marked = false;
