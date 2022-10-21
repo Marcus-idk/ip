@@ -1,4 +1,4 @@
-public class Task {
+public class Task { //the object type that is used in Duke
     private final String name;
     private boolean marked;
     public Task(String name) {
@@ -23,5 +23,8 @@ public class Task {
         } else {
             return "[ ] " + this.name;
         }
+    }
+    public String getType() {
+        return "T";
     }
 }

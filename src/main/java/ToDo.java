@@ -1,5 +1,5 @@
-public class toDos extends Task {
-    public toDos(String name) {
+public class ToDo extends Task { //subtype of Task
+    public ToDo(String name) {
         super(name);
     }
     @Override
@@ -7,3 +7,4 @@ public class toDos extends Task {
         return "[T]" + super.getDescription();
     }
 }
+
