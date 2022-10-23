@@ -16,7 +16,7 @@ public class Duke { //the duke class that runs the textbot program
             try {
                 parser.parse(s);
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("Number is too big!");
+                System.out.println("Input index is out of bounds!");
             } catch (InsufficientArgumentsException e) {
                 System.out.println("Incomplete command!");
             } catch (NumberFormatException e) {

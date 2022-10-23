@@ -1,0 +1,4 @@
+1, 123, false, T
+2, 456, false, T
+3, idk, false, D
+4, lmaoaooaoaoaoa, false, T

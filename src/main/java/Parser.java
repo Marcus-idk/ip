@@ -8,20 +8,24 @@ public class Parser { //the class that takes in input Strings by the user
     public Parser(ArrayList<Task> arr) {
         this.arr = arr;
     }
-    public void parse(String cmd) throws InsufficientArgumentsException, IOException{
-        if (isBye(cmd)) {
-            byeUser();
-            System.exit(0);
-        }
-        if (isShowList(cmd)) {
-            showList(arr);
-            return;
-        }
+    public void parse(String cmd) throws InsufficientArgumentsException, IOException {
         String[] split = cmd.split(" ", 2);
         String commandType = split[0].trim();
         String commandDetails = "";
         if (split.length > 1) commandDetails = split[1].trim();
-        if (isAddTask(commandType)) {
+        if (cmd.trim().equals("")) return;
+        else if (isBye(cmd)) {
+            byeUser();
+            System.exit(0);
+        }
+        else if (isShowList(cmd)) {
+            showList(arr);
+            return;
+        }
+        else if (isFind(commandType)) {
+            find(arr, commandDetails);
+        }
+        else if (isAddTask(commandType)) {
             addToTaskList(commandType, commandDetails, arr);
         } else if (isMarkTask(commandType)) {
             markUnMarkTask(commandType, commandDetails, arr);
@@ -60,7 +64,6 @@ public class Parser { //the class that takes in input Strings by the user
             String[] splitBySlash = details.split("/", 2);
             String taskName = splitBySlash[0].trim();
             String taskDate = splitBySlash[1].trim();
-            taskDate = editDateString(taskDate);
             if (typeOfTask.equals("deadline")) {
                 task = new Deadline(taskName, taskDate);
                 list.add(task);
@@ -118,8 +121,8 @@ public class Parser { //the class that takes in input Strings by the user
             throw new InsufficientArgumentsException();
         }
         int index = Integer.parseInt(details);
-        String s = list.get(index).getDescription();
-        list.remove(index);
+        String s = list.get(index - 1).getDescription();
+        list.remove(index - 1);
         System.out.println("Deleting " + s);
         System.out.println("Theres " + list.size() + " task(s) left");
     }
@@ -133,5 +136,18 @@ public class Parser { //the class that takes in input Strings by the user
         }
         myWriter.close();
         System.out.println("Save Successful!");
+    }
+    public static boolean isFind(String str) {
+        return str.equals("find");
+    }
+    public static void find(ArrayList<Task> arr, String str) throws InsufficientArgumentsException {
+        if (str.equals("")) throw new InsufficientArgumentsException();
+        int counter = 1;
+        for (int i = 0; i < arr.size(); i++) {
+            if (arr.get(i).getName().contains(str)) {
+                System.out.println(counter + ". " + arr.get(i).getDescription());
+                counter++;
+            }
+        }
     }
 }
