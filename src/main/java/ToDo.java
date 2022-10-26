@@ -6,5 +6,7 @@ public class ToDo extends Task { //subtype of Task
     public String getDescription() {
         return "[T]" + super.getDescription();
     }
+    @Override
+    public String getType() { return "TD"; }
 }
 

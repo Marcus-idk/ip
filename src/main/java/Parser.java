@@ -31,11 +31,10 @@ public class Parser { //the class that takes in input Strings by the user
             markUnMarkTask(commandType, commandDetails, arr);
         } else if (isDeleteTask(commandType)) {
             deleteTask(commandDetails, arr);
-        } else if (isSave(commandType)) {
-            save(arr);
         } else {
             System.out.println("Did you mean to do anything? UNRECOGNIZED COMMAND");
         }
+        save(arr);
     }
 
 
@@ -126,16 +125,16 @@ public class Parser { //the class that takes in input Strings by the user
         System.out.println("Deleting " + s);
         System.out.println("Theres " + list.size() + " task(s) left");
     }
-    public static boolean isSave(String str) {
-        return str.equals("save");
-    }
     public static void save(ArrayList<Task> arr) throws IOException { //index, name, marked, type of task
         FileWriter myWriter = new FileWriter("C:\\Users\\Marcus\\IdeaProjects\\ip\\dukeSaveFile.txt");
         for (int i = 0; i < arr.size(); i++) {
-            myWriter.write((i + 1) + ", " + arr.get(i).getName() + ", " + arr.get(i).isMarked() + ", " + arr.get(i).getType() + "\n");
+            if (arr.get(i).getType().equals("D") || arr.get(i).getType().equals("E")) {
+                myWriter.write((i + 1) + "," + arr.get(i).getName() + "," + arr.get(i).isMarked() + "," + arr.get(i).getType() + "," + arr.get(i).getTime());
+            } else {
+                myWriter.write((i + 1) + "," + arr.get(i).getName() + "," + arr.get(i).isMarked() + "," + arr.get(i).getType() + "\n");
+            }
         }
         myWriter.close();
-        System.out.println("Save Successful!");
     }
     public static boolean isFind(String str) {
         return str.equals("find");

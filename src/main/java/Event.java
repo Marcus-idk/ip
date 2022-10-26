@@ -1,25 +1,19 @@
 import java.time.LocalDate;
+import java.time.LocalTime;
 public class Event extends Task {
-    private String preposition;
-    private LocalDate date;
     private String time;
+
     public Event(String name, String timing) {
         super(name);
-        String[] splitBySlash = timing.split(" ", 3);
-        String preposition = splitBySlash[0];
-        String desc = splitBySlash[1];
-        String time = splitBySlash[2];
-        LocalDate d = LocalDate.parse(desc);
-        this.date = d;
-        this.time = time;
-        this.preposition = preposition;
+        this.time = timing;
     }
-    public LocalDate getTiming() {
-        return this.date;
+    @Override
+    public String getTime() {
+        return this.time;
     }
     @Override
     public String getDescription() {
-        return "[E]" + super.getDescription() + " " + preposition + ": " + this.date + " " + time;
+        return "[D]" + super.getDescription() + ": " + this.time;
     }
     @Override
     public String getType() {

@@ -1,22 +1,17 @@
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 public class Deadline extends Task { //subtype of Task
-    private String preposition;
-    private LocalDate deadline;
+    private String time;
     public Deadline(String name, String deadline) {
         super(name);
-        String[] splitBySlash = deadline.split(" ", 2);
-        String preposition = splitBySlash[0];
-        String desc = splitBySlash[1];
-        LocalDate d = LocalDate.parse(desc);
-        this.deadline = d;
-        this.preposition = preposition;
+        this.time = deadline;
     }
-    public LocalDate getDeadline() {
-        return this.deadline;
+    @Override
+    public String getTime() {
+        return this.time;
     }
     @Override
     public String getDescription() {
-        return "[D]" + super.getDescription() + " " + preposition + ": " + this.deadline;
+        return "[D]" + super.getDescription() + ": " + this.time;
     }
     @Override
     public String getType() {
