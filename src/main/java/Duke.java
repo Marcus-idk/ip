@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Duke { //the duke class that runs the textbot program
     private Storage storage;
-    private TaskList tasks;
+    private TaskList task;
     private UI ui;
     private Parser parser;
     private boolean active = true;
@@ -14,7 +14,7 @@ public class Duke { //the duke class that runs the textbot program
         try {
             ui = new UI();
             storage = new Storage("C:\\Users\\Marcus\\IdeaProjects\\ip\\dukeSaveFile.txt");
-            tasks = new TaskList(storage.getData());
+            task = new TaskList(storage.getData());
             parser = new Parser();
             this.runProgram();
         } catch (FileNotFoundException e) {
@@ -27,7 +27,7 @@ public class Duke { //the duke class that runs the textbot program
             try {
                 String command = ui.readCommand();
                 int commandInt = parser.parse(command);
-                Command c = new Command(tasks, ui);
+                Command c = new Command(task, ui);
                 c.execute(commandInt, command);
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Input index is out of bounds!");
