@@ -4,149 +4,54 @@ import java.util.ArrayList;
 import java.io.File;
 
 public class Parser { //the class that takes in input Strings by the user
-    private ArrayList<Task> arr;
-    public Parser(ArrayList<Task> arr) {
-        this.arr = arr;
+
+    public Parser() {
+
     }
-    public void parse(String cmd) throws InsufficientArgumentsException, IOException {
+    public int parse(String cmd) throws InsufficientArgumentsException, IOException {
         String[] split = cmd.split(" ", 2);
         String commandType = split[0].trim();
         String commandDetails = "";
         if (split.length > 1) commandDetails = split[1].trim();
-        if (cmd.trim().equals("")) return;
+        if (cmd.trim().equals("")) return 0;
         else if (isBye(cmd)) {
-            byeUser();
-            System.exit(0);
+            return 1;
         }
         else if (isShowList(cmd)) {
-            showList(arr);
-            return;
+            return 3;
         }
         else if (isFind(commandType)) {
-            find(arr, commandDetails);
+            return 6;
         }
         else if (isAddTask(commandType)) {
-            addToTaskList(commandType, commandDetails, arr);
+            return 2;
         } else if (isMarkTask(commandType)) {
-            markUnMarkTask(commandType, commandDetails, arr);
+            return 4;
         } else if (isDeleteTask(commandType)) {
-            deleteTask(commandDetails, arr);
+            return 5;
         } else {
-            System.out.println("Did you mean to do anything? UNRECOGNIZED COMMAND");
+            return 0;
         }
-        save(arr);
     }
-
-
-
-
-
+    //do nothing: 0, bye: 1, addTask: 2, showList: 3, markUnmarkTask: 4, delete: 5, find: 6
     public static boolean isBye(String str) {
         return str.equals("bye");
-    }
-    public static void byeUser() {
-        System.out.println("Bye");
     }
     public static boolean isAddTask(String str) {
         return str.equals("todo") || str.equals("deadline") || str.equals("event");
     }
-    public static void addToTaskList(String type, String details, ArrayList<Task> list) throws InsufficientArgumentsException {
-        if (details.equals("")) {
-            throw new InsufficientArgumentsException();
-        }
-        String typeOfTask = type;
-        Task task;
-        if (typeOfTask.equals("todo")) {
-            task = new ToDo(details);
-            list.add(task);
-        } else {
-            String[] splitBySlash = details.split("/", 2);
-            String taskName = splitBySlash[0].trim();
-            String taskDate = splitBySlash[1].trim();
-            if (typeOfTask.equals("deadline")) {
-                task = new Deadline(taskName, taskDate);
-                list.add(task);
-            } else {
-                task = new Event(taskName, taskDate);
-                list.add(task);
-            }
-        }
-        System.out.println("Added to the list!");
-        System.out.println("   " + task.getDescription());
-        System.out.println("You now have " + list.size() + " tasks");
-    }
-    public static String editDateString(String str) {
-        String[] splitByDot = str.split(" ", 2);
-        return "(" + splitByDot[0] + ": " + splitByDot[1] + ")";
-    }
     public static boolean isShowList(String str) {
         return str.substring(0, 4).equals("list");
     }
-    public static void showList(ArrayList<Task> list) {
-        if (list.size() == 0) {
-            System.out.println("Your list is empty!");
-        } else {
-            for (int i = 0; i < list.size(); i++) {
-                System.out.println((i + 1) + "." + list.get(i).getDescription());
-            }
-        }
-    }
+
     public static boolean isMarkTask(String str) {
         return str.equals("mark") || str.equals("unmark");
     }
-    public static void markUnMarkTask(String type, String details, ArrayList<Task> list) throws InsufficientArgumentsException {
-        if (details.equals("")) {
-            throw new InsufficientArgumentsException();
-        }
-        if (type.equals("mark")) {
-            markTask(Integer.parseInt(details), list);
-        } else {
-            unMarkTask(Integer.parseInt(details), list);
-        }
-    }
-    public static void markTask(int index, ArrayList<Task> list) {
-        list.get(index - 1).markTask();
-        System.out.println("Marking [X] " + list.get(index - 1).getName());
-    }
-    public static void unMarkTask(int index, ArrayList<Task> list) {
-        list.get(index - 1).unMarkTask();
-        System.out.println("Unmarking [ ] " + list.get(index - 1).getName());
-    }
+
     public static boolean isDeleteTask(String str) {
         return str.equals("delete");
     }
-    public static void deleteTask(String details, ArrayList<Task> list) throws InsufficientArgumentsException, NumberFormatException {
-        if (details.equals("")) {
-            throw new InsufficientArgumentsException();
-        }
-        int index = Integer.parseInt(details);
-        String s = list.get(index - 1).getDescription();
-        list.remove(index - 1);
-        System.out.println("Deleting " + s);
-        System.out.println("Theres " + list.size() + " task(s) left");
-    }
-    public static void save(ArrayList<Task> arr) throws IOException { //index, name, marked, type of task
-        FileWriter myWriter = new FileWriter("C:\\Users\\Marcus\\IdeaProjects\\ip\\dukeSaveFile.txt");
-        for (int i = 0; i < arr.size(); i++) {
-            if (arr.get(i).getType().equals("D") || arr.get(i).getType().equals("E")) {
-                myWriter.write((i + 1) + "," + arr.get(i).getName() + "," + arr.get(i).isMarked() + "," + arr.get(i).getType() + "," + arr.get(i).getTime());
-            } else {
-                myWriter.write((i + 1) + "," + arr.get(i).getName() + "," + arr.get(i).isMarked() + "," + arr.get(i).getType() + "\n");
-            }
-        }
-        myWriter.close();
-    }
     public static boolean isFind(String str) {
         return str.equals("find");
-    }
-    public static void find(ArrayList<Task> arr, String str) throws InsufficientArgumentsException {
-        if (str.equals("")) throw new InsufficientArgumentsException();
-        int counter = 1;
-        for (int i = 0; i < arr.size(); i++) {
-            if (arr.get(i).getName().contains(str)) {
-                System.out.println(counter + ". " + arr.get(i).getDescription());
-                counter++;
-            }
-        }
     }
 }

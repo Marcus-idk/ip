@@ -5,23 +5,30 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke { //the duke class that runs the textbot program
-    public static void runProgram() {
-        Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> taskList;
+    private Storage storage;
+    private TaskList tasks;
+    private UI ui;
+    private Parser parser;
+    private boolean active = true;
+    public Duke() {
         try {
-            taskList = getDataFromHardDisk();
+            ui = new UI();
+            storage = new Storage("C:\\Users\\Marcus\\IdeaProjects\\ip\\dukeSaveFile.txt");
+            tasks = new TaskList(storage.getData());
+            parser = new Parser();
+            this.runProgram();
         } catch (FileNotFoundException e) {
-            System.out.println("Error loading file from disk!");
-            return;
+            System.out.println("File not found!");
         }
-        Parser parser = new Parser(taskList);
-        boolean active = true;
-        greetUser();
+    }
+
+    public void runProgram() {
         while (active) {
-            System.out.println("_________________________");
-            String s = scanner.nextLine();
             try {
-                parser.parse(s);
+                String command = ui.readCommand();
+                int commandInt = parser.parse(command);
+                Command c = new Command(tasks, ui);
+                c.execute(commandInt, command);
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Input index is out of bounds!");
             } catch (InsufficientArgumentsException e) {
@@ -32,9 +39,6 @@ public class Duke { //the duke class that runs the textbot program
                 System.out.println("heh");
             }
         }
-    }
-    public static void run() {
-
     }
     public static ArrayList<Task> getDataFromHardDisk() throws FileNotFoundException {
         ArrayList<Task> arr = new ArrayList<>();
