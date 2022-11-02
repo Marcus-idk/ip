@@ -1,3 +1,4 @@
+package duke.tasks;
 public class Task { //the object type that is used in Duke
     private final String name;
     private boolean marked;

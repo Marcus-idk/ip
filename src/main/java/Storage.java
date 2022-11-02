@@ -1,3 +1,8 @@
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.ToDo;
+import duke.tasks.Task;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -22,10 +27,6 @@ public class Storage {
             String type = split[3];
             String additionalInfo = "";
             if (split.length > 4) additionalInfo = split[4];
-            System.out.println("name" + name);
-            System.out.println("isMarked" + isMarked);
-            System.out.println("type" + type);
-            System.out.println("additionalInfo" + additionalInfo);
             if (type.equals("TD")) {
                 arr.add(counter, new ToDo(name));
             } else if (type.equals("D")) {
@@ -43,8 +44,8 @@ public class Storage {
     public ArrayList<Task> getData() {
         return this.taskArr;
     }
-    public void save(ArrayList<Task> arr) throws IOException { //index, name, marked, type of task
-        FileWriter myWriter = new FileWriter(path);
+    public void save(TaskList arr) throws IOException { //index, name, marked, type of task
+        FileWriter myWriter = new FileWriter(this.path);
         for (int i = 0; i < arr.size(); i++) {
             if (arr.get(i).getType().equals("D") || arr.get(i).getType().equals("E")) {
                 myWriter.write((i + 1) + "," + arr.get(i).getName() + "," + arr.get(i).isMarked() + "," + arr.get(i).getType() + "," + arr.get(i).getTime());

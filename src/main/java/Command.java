@@ -1,34 +1,51 @@
-import java.util.ArrayList;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.ToDo;
+import duke.tasks.Task;
+
+import java.io.IOException;
 
 public class Command {
-    private TaskList arr;
-    private UI ui;
-    public Command(TaskList arr, UI ui) {
-        this.arr = arr;
+    private int commandType;
+    private String commandDetails;
+    public Command(int commandType, String commandDetails) {
+        this.commandType = commandType;
+        this.commandDetails = commandDetails;
     }
-    public void execute(int x, String command) throws InsufficientArgumentsException {
-        if (x == 0) { //do nothing
+    public void execute(TaskList arr, UI ui, Storage storage) throws InsufficientArgumentsException, IOException {
+        if (commandType == 0) { //do nothing
             ui.doNothing();
             return;
-        } else if (x == 1) { //stop the program
+        } else if (commandType == 1) { //stop the program
             ui.byeUser();
             return;
         }
-        String type = command.split(" ", 2)[0];
-        String details = command.split(" ", 2)[1];
-        if (x == 2) { //add to list
-            addToTaskList(type, details, this.arr);
-        } else if (x == 3) {
+        String type = commandDetails.split(" ", 2)[0];
+        if (commandType / 10 == 2) {
+            String taskType = "";
+            if (commandType == 21) taskType = "todo";
+            else if (commandType == 22) taskType = "deadline";
+            else taskType = "event";
+            addToTaskList(taskType, commandDetails, arr, ui);
+            storage.save(arr);
+        } else if (commandType == 3) {
             ui.showList(arr);
-        } else if (x == 4) {
-            markUnMarkTask(type, details, this.arr);
-        } else if (x == 5) {
-            deleteTask(details, this.arr);
-        } else {
-            find(arr, details);
+        } else if (commandType == 4) {
+            int index = Integer.parseInt(commandDetails);
+            markTask(index, arr, ui);
+            storage.save(arr);
+        } else if (commandType == 5) {
+            int index = Integer.parseInt(commandDetails);
+            unMarkTask(index, arr, ui);
+            storage.save(arr);
+        } if (commandType == 6) {
+            deleteTask(commandDetails, arr, ui);
+            storage.save(arr);
+        } else if (commandType == 7) {
+            find(arr, commandDetails, ui);
         }
     }
-    public void addToTaskList(String type, String details, TaskList list) throws InsufficientArgumentsException {
+    public void addToTaskList(String type, String details, TaskList list, UI ui) throws InsufficientArgumentsException, IndexOutOfBoundsException {
         if (details.equals("")) {
             throw new InsufficientArgumentsException();
         }
@@ -49,48 +66,36 @@ public class Command {
                 list.add(task);
             }
         }
-        System.out.println("Added to the list!");
-        System.out.println("   " + task.getDescription());
-        System.out.println("You now have " + list.size() + " tasks");
+        ui.addToList(task, list);
     }
     public String editDateString(String str) {
         String[] splitByDot = str.split(" ", 2);
         return "(" + splitByDot[0] + ": " + splitByDot[1] + ")";
     }
-    public static void markUnMarkTask(String type, String details, TaskList list) throws InsufficientArgumentsException {
-        if (details.equals("")) {
-            throw new InsufficientArgumentsException();
-        }
-        if (type.equals("mark")) {
-            markTask(Integer.parseInt(details), list);
-        } else {
-            unMarkTask(Integer.parseInt(details), list);
-        }
-    }
-    public static void markTask(int index, TaskList list) {
+    public static void markTask(int index, TaskList list, UI ui) {
         list.get(index - 1).markTask();
-        System.out.println("Marking [X] " + list.get(index - 1).getName());
+        ui.markTask(index - 1, list);
+        System.out.println("still alive!");
     }
-    public static void unMarkTask(int index, TaskList list) {
+    public static void unMarkTask(int index, TaskList list, UI ui) {
         list.get(index - 1).unMarkTask();
-        System.out.println("Unmarking [ ] " + list.get(index - 1).getName());
+        ui.unMarkTask(index - 1, list);
     }
-    public static void deleteTask(String details, TaskList list) throws InsufficientArgumentsException, NumberFormatException {
+    public static void deleteTask(String details, TaskList list, UI ui) throws InsufficientArgumentsException, NumberFormatException {
         if (details.equals("")) {
             throw new InsufficientArgumentsException();
         }
         int index = Integer.parseInt(details);
         String s = list.get(index - 1).getDescription();
         list.remove(index - 1);
-        System.out.println("Deleting " + s);
-        System.out.println("Theres " + list.size() + " task(s) left");
+        ui.deleteTask(index, list);
     }
-    public static void find(TaskList arr, String str) throws InsufficientArgumentsException {
+    public static void find(TaskList arr, String str, UI ui) throws InsufficientArgumentsException {
         if (str.equals("")) throw new InsufficientArgumentsException();
         int counter = 1;
         for (int i = 0; i < arr.size(); i++) {
             if (arr.get(i).getName().contains(str)) {
-                System.out.println(counter + ". " + arr.get(i).getDescription());
+                ui.printCustomList(counter, i, arr);
                 counter++;
             }
         }
