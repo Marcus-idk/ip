@@ -1,11 +1,5 @@
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.io.File;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.ToDo;
-import duke.tasks.Task;
+
 public class Parser { //the class that takes in input Strings by the user
     public Parser() {
     }
@@ -14,31 +8,30 @@ public class Parser { //the class that takes in input Strings by the user
         String commandType = split[0].trim();
         String commandDetails = "";
         if (split.length > 1) commandDetails = split[1].trim();
-        if (cmd.trim().equals("")) return new Command(0, commandDetails);
+        if (cmd.trim().equals("")) return new Command(typeOfCommand.doNothing, commandDetails);
         else if (isBye(commandType)) {
-            return new Command(1, commandDetails);
+            return new Command(typeOfCommand.bye, commandDetails);
         }
         else if (isShowList(commandType)) {
-            return new Command(3, commandDetails);
+            return new Command(typeOfCommand.showList, commandDetails);
         }
         else if (isFind(commandType)) {
-            return new Command(7, commandDetails);
+            return new Command(typeOfCommand.find, commandDetails);
         } else if (isAddTask(commandType)) {
-            if (isToDo(commandType)) return new Command(21, commandDetails);
-            else if (isDeadline(commandType)) return new Command(22, commandDetails);
-            else if (isEvent(commandType)) return new Command(23, commandDetails);
+            if (isToDo(commandType)) return new Command(typeOfCommand.addToDo, commandDetails);
+            else if (isDeadline(commandType)) return new Command(typeOfCommand.addDeadline, commandDetails);
+            else if (isEvent(commandType)) return new Command(typeOfCommand.addEvent, commandDetails);
             else throw new UnrecognizedCommandException();
         } else if (isMarkTask(commandType)) {
-            return new Command(4, commandDetails);
+            return new Command(typeOfCommand.markTask, commandDetails);
         } else if (isUnMarkTask(commandType)) {
-            return new Command(5, commandDetails);
+            return new Command(typeOfCommand.unMarkTask, commandDetails);
         } else if (isDeleteTask(commandType)) {
-            return new Command(6, commandDetails);
+            return new Command(typeOfCommand.delete, commandDetails);
         } else {
-            return new Command(0, commandDetails);
+            return new Command(typeOfCommand.doNothing, commandDetails);
         }
     }
-    //do nothing: 0, bye: 1, addTask: 2, showList: 3, markTask: 4, unMarkTask: 5, delete: 6, find: 7
     public static boolean isBye(String str) {
         return str.equals("bye");
     }

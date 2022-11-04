@@ -47,8 +47,10 @@ public class Storage {
     public void save(TaskList arr) throws IOException { //index, name, marked, type of task
         FileWriter myWriter = new FileWriter(this.path);
         for (int i = 0; i < arr.size(); i++) {
-            if (arr.get(i).getType().equals("D") || arr.get(i).getType().equals("E")) {
-                myWriter.write((i + 1) + "," + arr.get(i).getName() + "," + arr.get(i).isMarked() + "," + arr.get(i).getType() + "," + arr.get(i).getTime());
+            if (arr.get(i).getType().equals("D")) {
+                myWriter.write((i + 1) + "," + arr.get(i).toString() + "\n");
+            } else if (arr.get(i).getType().equals("E")) {
+                myWriter.write((i + 1) + "," + arr.get(i).toString() + "\n");
             } else {
                 myWriter.write((i + 1) + "," + arr.get(i).getName() + "," + arr.get(i).isMarked() + "," + arr.get(i).getType() + "\n");
             }

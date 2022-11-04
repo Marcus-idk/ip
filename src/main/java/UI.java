@@ -47,6 +47,9 @@ public class UI {
         System.out.println(display + ". " + list.get(index).getDescription());
         divider();
     }
+    public void cannotFind() {
+        System.out.println("Unable to find anything, maybe change your keywords?");
+    }
     public void addToList(Task task, TaskList list) {
         System.out.println("Added to the list!");
         System.out.println("   " + task.getDescription());
@@ -70,18 +73,18 @@ public class UI {
         System.out.println("Did you mean to do anything?");
         divider();
     }
-
-
-
     //Exceptions
     public void indexOutOfBounds() {
-        System.out.println("Input index is out of bounds!");
+        System.out.println("Input index is out of bounds");
+    }
+    public void or() {
+        System.out.println("or");
     }
     public void incompleteCommand() {
         System.out.println("Incomplete command!");
     }
     public void unrecognizedCommand() {
-        System.out.println("Unrecognized Command!");
+        System.out.println("Unrecognized Command");
     }
     public void IOException() {
         System.out.println("IO Exception");

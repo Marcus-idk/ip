@@ -1,12 +1,5 @@
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.ToDo;
-import duke.tasks.Task;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Duke { //the duke class that runs the textbot program
     private Storage storage;
@@ -32,12 +25,15 @@ public class Duke { //the duke class that runs the textbot program
                 String commandString = ui.readCommand();
                 Command command = parser.parse(commandString);
                 command.execute(task, ui, storage);
-            } catch (IndexOutOfBoundsException | InsufficientArgumentsException | NumberFormatException | UnrecognizedCommandException e) {
+            } catch (IndexOutOfBoundsException | InsufficientArgumentsException | NumberFormatException |
+                     UnrecognizedCommandException e) {
                 ui.indexOutOfBounds();
-                System.out.print("/");
+                ui.or();
                 ui.unrecognizedCommand();
+                ui.divider();
             } catch (IOException e) {
                 ui.IOException();
+                ui.divider();
             }
         }
     }

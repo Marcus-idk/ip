@@ -10,5 +10,9 @@ public class ToDo extends Task { //subtype of Task
     }
     @Override
     public String getType() { return "TD"; }
+    @Override
+    public String toString() {
+        return this.getName() + ", " + this.isMarked() + ", " + this.getType();
+    }
 }
 
