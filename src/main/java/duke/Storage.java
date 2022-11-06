@@ -1,8 +1,8 @@
+package duke;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.ToDo;
 import duke.tasks.Task;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -28,14 +28,16 @@ public class Storage {
             String additionalInfo = "";
             if (split.length > 4) additionalInfo = split[4];
             if (type.equals("TD")) {
-                arr.add(counter, new ToDo(name));
+                arr.add(new ToDo(name));
             } else if (type.equals("D")) {
-                arr.add(counter, new Deadline(name, additionalInfo));
+                arr.add(new Deadline(name, additionalInfo));
             } else if (type.equals("E")) {
-                arr.add(counter, new Event(name, additionalInfo));
+                arr.add(new Event(name, additionalInfo));
             }
             if (Boolean.parseBoolean(isMarked)) {
+                System.out.println(1);
                 arr.get(counter).markTask();
+                System.out.println(2);
             }
             counter++;
         }

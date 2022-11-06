@@ -12,7 +12,7 @@ public class ToDo extends Task { //subtype of Task
     public String getType() { return "TD"; }
     @Override
     public String toString() {
-        return this.getName() + ", " + this.isMarked() + ", " + this.getType();
+        return this.getName() + "," + this.isMarked() + "," + this.getType();
     }
 }
 

@@ -1,11 +1,10 @@
+package duke;
 import java.util.ArrayList;
 import java.util.Scanner;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.ToDo;
 import duke.tasks.Task;
-
-
 public class UI {
     private Scanner scanner;
     public UI() {
@@ -31,7 +30,7 @@ public class UI {
         System.out.println("_________________________");
     }
     public void byeUser() {
-        System.out.println("Bye");
+        System.out.println("Bye!!!?!?!???!");
     }
     public void showList(TaskList list) {
         if (list.size() == 0) {
@@ -71,7 +70,6 @@ public class UI {
     }
     public void doNothing() {
         System.out.println("Did you mean to do anything?");
-        divider();
     }
     //Exceptions
     public void indexOutOfBounds() {
@@ -84,7 +82,7 @@ public class UI {
         System.out.println("Incomplete command!");
     }
     public void unrecognizedCommand() {
-        System.out.println("Unrecognized Command");
+        System.out.println("Unrecognized duke.commands.Command");
     }
     public void IOException() {
         System.out.println("IO Exception");

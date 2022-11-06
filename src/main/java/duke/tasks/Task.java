@@ -1,6 +1,6 @@
 package duke.tasks;
 import java.time.LocalDateTime;
-public class Task { //the object type that is used in Duke
+public class Task { //the object type that is used in duke.Duke
     private final String name;
     private boolean marked;
     public Task(String name) {

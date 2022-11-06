@@ -45,6 +45,6 @@ public class Event extends Task {
     }
     @Override
     public String toString() {
-        return this.getName() + ", " + this.isMarked() + ", " + this.getType() + ", " + this.dateTimeStart.toString() + ", " + this.dateTimeEnd.toString();
+        return this.getName() + "," + this.isMarked() + "," + this.getType() + "," + this.dateTimeStart.toString() + "," + this.dateTimeEnd.toString();
     }
 }

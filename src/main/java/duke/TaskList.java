@@ -1,3 +1,4 @@
+package duke;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.ToDo;
