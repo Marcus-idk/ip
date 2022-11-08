@@ -35,9 +35,7 @@ public class Storage {
                 arr.add(new Event(name, additionalInfo));
             }
             if (Boolean.parseBoolean(isMarked)) {
-                System.out.println(1);
                 arr.get(counter).markTask();
-                System.out.println(2);
             }
             counter++;
         }

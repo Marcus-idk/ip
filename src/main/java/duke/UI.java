@@ -56,7 +56,7 @@ public class UI {
         divider();
     }
     public void markTask(int index, TaskList list) {
-        System.out.println("Marking [X] " + list.get(index - 1).getName());
+        System.out.println("Marking [X] " + list.get(index).getName());
         divider();
     }
     public void unMarkTask(int index, TaskList list) {

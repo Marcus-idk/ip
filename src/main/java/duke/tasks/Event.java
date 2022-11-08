@@ -45,6 +45,6 @@ public class Event extends Task {
     }
     @Override
     public String toString() {
-        return this.getName() + "," + this.isMarked() + "," + this.getType() + "," + this.dateTimeStart.toString() + "," + this.dateTimeEnd.toString();
+        return this.getName() + "," + this.isMarked() + "," + this.getType() + ",at " + this.dateTimeStart.format(DateTimeFormatter.ofPattern("dd MM yyyy HHmm")) + "," + this.dateTimeEnd.format(DateTimeFormatter.ofPattern("dd MM yyyy HHmm"));
     }
 }

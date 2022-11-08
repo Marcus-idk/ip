@@ -11,7 +11,6 @@ public class Deadline extends Task { //subtype of Task
         this.datetime = datetime;
     }
     public String getAfterBy(String str) throws IndexOutOfBoundsException {
-        System.out.println(str);
         String info = str.split(" ", 2)[1];
         return info;
     }
@@ -38,6 +37,6 @@ public class Deadline extends Task { //subtype of Task
     }
     @Override
     public String toString() {
-        return this.getName() + "," + this.isMarked() + "," + this.getType() + "," + this.datetime.toString();
+        return this.getName() + "," + this.isMarked() + "," + this.getType() + ",by " + this.datetime.format(DateTimeFormatter.ofPattern("dd MM yyyy HHmm"));
     }
 }
