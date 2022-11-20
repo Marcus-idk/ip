@@ -2,21 +2,23 @@ package duke.commands;
 import duke.tasks.Deadline;
 import duke.tasks.Task;
 import java.io.IOException;
+import java.time.LocalDateTime;
+
 import duke.*;
 public class AddDeadlineCommand extends Command {
-    public AddDeadlineCommand(String commandDetails) {
-        super(commandDetails);
+    private String name;
+    private LocalDateTime deadline;
+    public AddDeadlineCommand(String name, LocalDateTime deadline) {
+        this.name = name;
+        this.deadline = deadline;
     }
     @Override
     public void execute(TaskList arr, UI ui, Storage storage) throws InsufficientArgumentsException, IOException {
-        addDeadline(commandDetails, arr, ui);
+        addDeadline(name, deadline, arr, ui);
         storage.save(arr);
     }
-    public void addDeadline(String commandDetails, TaskList arr, UI ui) {
-        String[] splitBySlash = commandDetails.split("/");
-        String taskName = splitBySlash[0].trim();
-        String taskDate = splitBySlash[1].trim();
-        Task task = new Deadline(taskName, taskDate);
+    public void addDeadline(String name, LocalDateTime deadline, TaskList arr, UI ui) {
+        Task task = new Deadline(name, deadline);
         arr.add(task);
         ui.addToList(task, arr);
     }

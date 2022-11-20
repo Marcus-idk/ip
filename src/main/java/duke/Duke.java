@@ -15,12 +15,20 @@ public class Duke { //the duke class that runs the textbot program
         try {
             ui = new UI();
             ui.greetUser();
-            storage = new Storage(filePath);
-            task = new TaskList(storage.getData());
+            storage = new Storage(filePath, parser, ui);
+            task = storage.getData();
             parser = new Parser();
             this.runProgram();
         } catch (FileNotFoundException e) {
             ui.fileNotFound();
+        } catch (InsufficientArgumentsException | UnrecognizedCommandException e) {
+            ui.indexOutOfBounds();
+            ui.or();
+            ui.unrecognizedCommand();
+            ui.divider();
+        } catch (IOException e) {
+            ui.IOException();
+            ui.divider();
         }
     }
     public void runProgram() {

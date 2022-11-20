@@ -2,12 +2,12 @@ package duke.commands;
 import duke.*;
 import java.io.IOException;
 public class MarkTaskCommand extends Command {
-    public MarkTaskCommand(String commandDetails) {
-        super(commandDetails);
+    private int index;
+    public MarkTaskCommand(int index) {
+        this.index = index;
     }
     @Override
     public void execute(TaskList arr, UI ui, Storage storage) throws IOException {
-        int index = Integer.parseInt(commandDetails);
         markTask(index, arr, ui);
         storage.save(arr);
     }

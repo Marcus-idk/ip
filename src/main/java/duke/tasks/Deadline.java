@@ -4,25 +4,9 @@ import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task { //subtype of Task
     private LocalDateTime datetime;
-    public Deadline(String name, String deadline) throws IndexOutOfBoundsException { //deadline wash /by 26 12 2022 0600
+    public Deadline(String name, LocalDateTime deadline) throws IndexOutOfBoundsException { //deadline wash /by 26 12 2022 0600
         super(name);
-        String info = getAfterBy(deadline);
-        LocalDateTime datetime = getSpecifics(info);
-        this.datetime = datetime;
-    }
-    public String getAfterBy(String str) throws IndexOutOfBoundsException {
-        String info = str.split(" ", 2)[1];
-        return info;
-    }
-    public LocalDateTime getSpecifics(String str) {
-        String[] split = str.split(" ");
-        int day = Integer.parseInt(split[0]);
-        int month = Integer.parseInt(split[1]);
-        int year = Integer.parseInt(split[2]);
-        int hour = Integer.parseInt(split[3].substring(0, 2));
-        int min = Integer.parseInt(split[3].substring(2));
-        LocalDateTime data = LocalDateTime.of(year, month, day, hour, min);
-        return data;
+        this.datetime = deadline;
     }
     public LocalDateTime getTime() {
         return this.datetime;

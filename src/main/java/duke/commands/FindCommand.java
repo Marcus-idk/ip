@@ -1,12 +1,12 @@
 package duke.commands;
 import duke.*;
 public class FindCommand extends Command {
-    public FindCommand(String commandDetails) {
-        super(commandDetails);
+    private String findString;
+    public FindCommand() {
     }
     @Override
     public void execute(TaskList arr, UI ui, Storage storage) throws InsufficientArgumentsException {
-        find(arr, commandDetails, ui);
+        find(arr, this.findString, ui);
     }
     public static void find(TaskList arr, String str, UI ui) throws InsufficientArgumentsException {
         if (str.equals("")) throw new InsufficientArgumentsException();

@@ -5,16 +5,17 @@ import duke.tasks.ToDo;
 import java.io.IOException;
 
 public class AddToDoCommand extends Command {
-    public AddToDoCommand(String commandDetails) {
-        super(commandDetails);
+    private String name;
+    public AddToDoCommand(String name) {
+        this.name = name;
     }
     @Override
     public void execute(TaskList arr, UI ui, Storage storage) throws InsufficientArgumentsException, IOException {
-        addToDo(commandDetails, arr, ui);
+        addToDo(this.name, arr, ui);
         storage.save(arr);
     }
-    public void addToDo(String commandDetails, TaskList arr, UI ui) {
-        Task task = new ToDo(commandDetails);
+    public void addToDo(String name, TaskList arr, UI ui) {
+        Task task = new ToDo(name);
         arr.add(task);
         ui.addToList(task, arr);
     }

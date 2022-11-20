@@ -1,8 +1,7 @@
 package duke.commands;
 import duke.*;
 public class ByeCommand extends Command {
-    public ByeCommand(String commandDetails) {
-        super(commandDetails);
+    public ByeCommand() {
     }
     @Override
     public void execute(TaskList arr, UI ui, Storage storage) {

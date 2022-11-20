@@ -7,8 +7,8 @@ import java.util.ArrayList;
 
 public class TaskList {
     private ArrayList<Task> arr;
-    public TaskList(ArrayList<Task> data) {
-        arr = new ArrayList<>(data);
+    public TaskList() {
+
     }
     public int size() {
         return this.arr.size();

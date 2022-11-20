@@ -9,28 +9,46 @@ public class Parser { //the class that takes in input Strings by the user
         String commandType = split[0].trim();
         String commandDetails = "";
         if (split.length > 1) commandDetails = split[1].trim();
-        if (cmd.trim().equals("")) return new DoNothingCommand(commandDetails);
+        if (cmd.trim().equals("")) return new DoNothingCommand();
         else if (isBye(commandType)) {
-            return new ByeCommand(commandDetails);
+            return new ByeCommand();
         }
         else if (isShowList(commandType)) {
-            return new ShowListCommand(commandDetails);
+            return new ShowListCommand();
         }
         else if (isFind(commandType)) {
-            return new FindCommand(commandDetails);
+            return new FindCommand();
         } else if (isAddTask(commandType)) {
-            if (isToDo(commandType)) return new AddToDoCommand(commandDetails);
-            else if (isDeadline(commandType)) return new AddDeadlineCommand(commandDetails);
-            else if (isEvent(commandType)) return new AddEventCommand(commandDetails);
+            if (isToDo(commandType)) {
+                AddToDoParser p = new AddToDoParser();
+                p.getData(commandDetails);
+                return new AddToDoCommand(p.getName());
+            }
+            else if (isDeadline(commandType)) {
+                AddDeadlineParser p = new AddDeadlineParser();
+                p.getData(commandDetails);
+                return new AddDeadlineCommand(p.getName(), p.getDeadline());
+            }
+            else if (isEvent(commandType)) {
+                AddEventParser p = new AddEventParser();
+                p.getData(commandDetails);
+                return new AddEventCommand(p.getName(), p.getStartTime(), p.getEndTime());
+            }
             else throw new UnrecognizedCommandException();
         } else if (isMarkTask(commandType)) {
-            return new MarkTaskCommand(commandDetails);
+            MarkTaskParser p = new MarkTaskParser();
+            p.getData(commandDetails);
+            return new MarkTaskCommand(p.getIndex());
         } else if (isUnMarkTask(commandType)) {
-            return new UnMarkTaskCommand(commandDetails);
+            UnMarkTaskParser p = new UnMarkTaskParser();
+            p.getData(commandDetails);
+            return new UnMarkTaskCommand(p.getIndex());
         } else if (isDeleteTask(commandType)) {
-            return new DeleteTaskCommand(commandDetails);
+            DeleteParser p = new DeleteParser();
+            p.getData(commandDetails);
+            return new DeleteTaskCommand(p.getIndex());
         } else {
-            return new DoNothingCommand(commandDetails);
+            return new DoNothingCommand();
         }
     }
     public static boolean isBye(String str) {
