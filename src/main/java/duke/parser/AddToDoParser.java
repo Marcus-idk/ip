@@ -1,4 +1,4 @@
-package duke;
+package duke.parser;
 public class AddToDoParser {
     private String name;
     public AddToDoParser() {

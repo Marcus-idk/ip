@@ -1,7 +1,8 @@
-package duke;
-public class DeleteParser extends Parser {
+package duke.parser;
+
+public class MarkTaskParser {
     private int index;
-    public DeleteParser() {
+    public MarkTaskParser() {
 
     }
     public void getData(String str) {

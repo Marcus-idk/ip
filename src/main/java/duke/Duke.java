@@ -1,6 +1,7 @@
 package duke;
 
 import duke.commands.Command;
+import duke.parser.Parser;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,9 +16,9 @@ public class Duke { //the duke class that runs the textbot program
         try {
             ui = new UI();
             ui.greetUser();
+            parser = new Parser();
             storage = new Storage(filePath, parser, ui);
             task = storage.getData();
-            parser = new Parser();
             this.runProgram();
         } catch (FileNotFoundException e) {
             ui.fileNotFound();

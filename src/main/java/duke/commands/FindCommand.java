@@ -9,7 +9,7 @@ public class FindCommand extends Command {
         find(arr, this.findString, ui);
     }
     public static void find(TaskList arr, String str, UI ui) throws InsufficientArgumentsException {
-        if (str.equals("")) throw new InsufficientArgumentsException();
+        if (str == null || str.equals("")) throw new InsufficientArgumentsException();
         int counter = 1;
         for (int i = 0; i < arr.size(); i++) {
             if (arr.get(i).getName().contains(str)) {

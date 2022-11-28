@@ -3,7 +3,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task { //subtype of Task
-    private LocalDateTime datetime;
+    private final LocalDateTime datetime;
     public Deadline(String name, LocalDateTime deadline) throws IndexOutOfBoundsException { //deadline wash /by 26 12 2022 0600
         super(name);
         this.datetime = deadline;
@@ -17,10 +17,10 @@ public class Deadline extends Task { //subtype of Task
     }
     @Override
     public String getType() {
-        return "D";
+        return "deadline";
     }
     @Override
-    public String toString() {
-        return this.getName() + "," + this.isMarked() + "," + this.getType() + ",by " + this.datetime.format(DateTimeFormatter.ofPattern("dd MM yyyy HHmm"));
+    public String toString() { //D,run,true,by 20 12 2022 1800
+        return this.getTime() + "," + this.getName() + "," + this.isMarked() + ",by " + this.datetime.format(DateTimeFormatter.ofPattern("dd MM yyyy HHmm"));
     }
 }

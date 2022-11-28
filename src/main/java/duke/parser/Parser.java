@@ -1,5 +1,9 @@
-package duke;
+package duke.parser;
+import duke.InsufficientArgumentsException;
+import duke.UnrecognizedCommandException;
 import duke.commands.*;
+import duke.parser.*;
+
 import java.io.IOException;
 public class Parser { //the class that takes in input Strings by the user
     public Parser() {

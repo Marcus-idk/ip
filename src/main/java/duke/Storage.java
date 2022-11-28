@@ -1,44 +1,34 @@
 package duke;
 import duke.commands.Command;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.ToDo;
-import duke.tasks.Task;
+import duke.parser.Parser;
+
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Storage {
-    private TaskList arr;
+    private TaskList arr = new TaskList();
     private String path;
     public Storage(String filePath, Parser parser, UI ui) throws IOException, UnrecognizedCommandException, InsufficientArgumentsException {
         File data = new File(filePath);
         path = filePath;
         Scanner reader = new Scanner(data);
         int counter = 0;
-        while (reader.hasNextLine()) {
+        while (reader.hasNext()) { //TD,jump,true
             String dataString = reader.nextLine();
-            Command c = parser.parse(dataString);
+            String[] splitByComma = dataString.split(",");
+            String type = splitByComma[0];
+            String name = splitByComma[1];
+            boolean isMarked = Boolean.parseBoolean(splitByComma[2]);
+            String stringToBeParsed = type + " " + name;
+            Command c = parser.parse(stringToBeParsed);
             c.execute(arr, ui, this);
-//            String[] split = dataString.split(",");
-//            String name = split[1];
-//            String isMarked = split[2];
-//            String type = split[3];
-//            String additionalInfo = "";
-//            if (split.length > 4) additionalInfo = split[4];
-//            if (type.equals("TD")) {
-//                arr.add(new ToDo(name));
-//            } else if (type.equals("D")) {
-//                arr.add(new Deadline(name, additionalInfo));
-//            } else if (type.equals("E")) {
-//                arr.add(new Event(name, additionalInfo));
-//            }
-//            if (Boolean.parseBoolean(isMarked)) {
-//                arr.get(counter).markTask();
-//            }
+            if (isMarked) {
+                String mark = "mark " + (arr.size() - 1);
+                parser.parse(mark).execute(arr, ui, this);
+            }
+            c.execute(arr, ui, this);
             counter++;
         }
     }
@@ -49,11 +39,11 @@ public class Storage {
         FileWriter myWriter = new FileWriter(this.path);
         for (int i = 0; i < arr.size(); i++) {
             if (arr.get(i).getType().equals("D")) {
-                myWriter.write((i + 1) + "," + arr.get(i).toString() + "\n");
+                myWriter.write(arr.get(i).toString() + "\n");
             } else if (arr.get(i).getType().equals("E")) {
-                myWriter.write((i + 1) + "," + arr.get(i).toString() + "\n");
+                myWriter.write(arr.get(i).toString() + "\n");
             } else {
-                myWriter.write((i + 1) + "," + arr.get(i).getName() + "," + arr.get(i).isMarked() + "," + arr.get(i).getType() + "\n");
+                myWriter.write(arr.get(i).toString() + "\n");
             }
         }
         myWriter.close();

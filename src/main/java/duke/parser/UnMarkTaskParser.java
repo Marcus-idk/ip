@@ -1,8 +1,8 @@
-package duke;
+package duke.parser;
 
-public class MarkTaskParser {
+public class UnMarkTaskParser {
     private int index;
-    public MarkTaskParser() {
+    public UnMarkTaskParser() {
 
     }
     public void getData(String str) {

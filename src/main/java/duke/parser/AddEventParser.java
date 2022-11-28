@@ -1,4 +1,4 @@
-package duke;
+package duke.parser;
 
 import java.time.LocalDateTime;
 
@@ -20,7 +20,7 @@ public class AddEventParser { //event wash /at 6 12 2022 0600 - 8 12 2022 0800
         return name;
     }
     public LocalDateTime[] getStartAndEndTime(String str) {
-        String afterAt = str.split(" ", 2)[1];
+        String afterAt = str.split("/at", 2)[1];
         String[] split = afterAt.split("-", 2);
         String[] start = split[0].trim().split(" ");
         String[] end = split[1].trim().split(" ");

@@ -1,7 +1,5 @@
-package duke;
-
+package duke.parser;
 import java.time.LocalDateTime;
-
 public class AddDeadlineParser { //deadline wash dishes /by 2 12 2002 1200
     private String name;
     private LocalDateTime deadline;
@@ -10,7 +8,7 @@ public class AddDeadlineParser { //deadline wash dishes /by 2 12 2002 1200
     }
     public void getData(String str) {
         this.name = getNameFromData(str);
-        this.deadline = getDeadlineFromData(str);
+        this.deadline = getDeadlineFromData(str); //error here
     }
     public String getNameFromData(String str) {
         String name = str.split("/by")[0].trim();
@@ -18,8 +16,8 @@ public class AddDeadlineParser { //deadline wash dishes /by 2 12 2002 1200
     }
     public LocalDateTime getDeadlineFromData(String str) {
         String afterBy = str.split("/by")[1];
-        String[] split = afterBy.split(" ");
-        int day = Integer.parseInt(split[0]);
+        String[] split = afterBy.trim().split(" ");
+        int day = Integer.parseInt(split[0].trim());
         int month = Integer.parseInt(split[1]);
         int year = Integer.parseInt(split[2]);
         int hour = Integer.parseInt(split[3].substring(0, 2));

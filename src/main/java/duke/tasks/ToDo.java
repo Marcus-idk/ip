@@ -9,10 +9,10 @@ public class ToDo extends Task { //subtype of Task
         return "[T]" + super.getDescription();
     }
     @Override
-    public String getType() { return "TD"; }
+    public String getType() { return "todo"; }
     @Override
-    public String toString() {
-        return this.getName() + "," + this.isMarked() + "," + this.getType();
+    public String toString() { //TD,jump,true
+        return this.getType() + "," + this.getName() + "," + this.isMarked();
     }
 }
 

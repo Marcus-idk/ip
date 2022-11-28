@@ -3,8 +3,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Event extends Task {
-    private LocalDateTime dateTimeStart;
-    private LocalDateTime dateTimeEnd;
+    private final LocalDateTime dateTimeStart;
+    private final LocalDateTime dateTimeEnd;
     public Event(String name, LocalDateTime startTime, LocalDateTime endTime) throws IndexOutOfBoundsException { //event wash /at 6 12 2022 0600 - 8 12 2022 0800
         super(name);
         this.dateTimeStart = startTime;
@@ -22,7 +22,7 @@ public class Event extends Task {
         return "T";
     }
     @Override
-    public String toString() {
+    public String toString() { //
         return this.getName() + "," + this.isMarked() + "," + this.getType() + ",at " + this.dateTimeStart.format(DateTimeFormatter.ofPattern("dd MM yyyy HHmm")) + "," + this.dateTimeEnd.format(DateTimeFormatter.ofPattern("dd MM yyyy HHmm"));
     }
 }
