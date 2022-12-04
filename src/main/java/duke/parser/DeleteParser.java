@@ -1,5 +1,4 @@
 package duke.parser;
-
 public class DeleteParser extends Parser {
     private int index;
     public DeleteParser() {
