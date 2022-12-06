@@ -4,6 +4,7 @@ public class AddToDoParser {
     public AddToDoParser() {
     }
     public void getData(String str) {
+        if (str.trim().equals("")) throw new
         this.name = str;
     }
     public String getName() {

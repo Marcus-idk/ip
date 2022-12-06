@@ -11,7 +11,7 @@ public class AddEventParserTest {
     }
     @Test
     public void TestCase1() { //normal test
-        String input = "event eat /at 4 12 2022 1200 - 5 12 2022 1200";
+        String input = "eat /at 4 12 2022 1200 - 5 12 2022 1200";
         AddEventParser parser = new AddEventParser();
         parser.getData(input);
         String name = parser.getName();
@@ -26,7 +26,7 @@ public class AddEventParserTest {
     }
     @Test
     public void TestCase2() { //weirder tests
-        String input = "event drin kk 123 bottl : 1 3 /at 4 12 2022 1200 - 5 12 2025 1200";
+        String input = "drin kk 123 bottl : 1 3 /at 4 12 2022 1200 - 5 12 2025 1200";
         AddEventParser parser = new AddEventParser();
         parser.getData(input);
         String name = parser.getName();
@@ -41,7 +41,7 @@ public class AddEventParserTest {
     }
     @Test
     public void TestCase3() { //inversed time
-        String input = "event eat /at 5 12 2022 1200 - 4 12 2025 1200";
+        String input = "eat /at 5 12 2022 1200 - 4 12 2025 1200";
         AddEventParser parser = new AddEventParser();
         parser.getData(input);
         String name = parser.getName();
@@ -56,7 +56,7 @@ public class AddEventParserTest {
     }
     @Test
     public void TestCase4() { //double "at"s, throw error
-        String input = "event eat /at /at 5 12 2022 1200 - 4 12 2025 1200";
+        String input = "at /at /at 5 12 2022 1200 - 4 12 2025 1200";
         AddEventParser parser = new AddEventParser();
         parser.getData(input);
         String name = parser.getName();

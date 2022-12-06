@@ -1,32 +1,34 @@
 package duke.testing.parser;
 import duke.parser.AddToDoParser;
-import duke.parser.DeleteParser;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 public class AddToDoParserTest {
     public AddToDoParserTest() {
 
     }
+    private AddToDoParser parser;
+    @BeforeEach
+    void setUp() {
+        parser = new AddToDoParser();
+    }
     @Test
     public void TestCase1() { //normal test
-        String input = "todo Wash Clothes";
-        AddToDoParser parser = new AddToDoParser();
+        String input = "Wash Clothes";
         parser.getData(input);
         assertEquals(parser.getName(), "Wash Clothes");
     }
     @Test
-    public void TestCase2() { //weird tests
-        String input = "todo todo m  o p o";
-        AddToDoParser parser = new AddToDoParser();
+    public void TestCase2() { //weird tests, but should still work
+        String input = "todo m  o p o";
         parser.getData(input);
         assertEquals(parser.getName(), "todo m  o p o");
     }
     @Test
     public void TestCase3() { //boundary tests, should return error
-        String input = "todo ";
-        AddToDoParser parser = new AddToDoParser();
+        String input = " ";
         parser.getData(input);
-        assertEquals(parser.getName(), "?");
+//        assertThrows()
+//        assertEquals(parser.getName(), "?");
     }
 }

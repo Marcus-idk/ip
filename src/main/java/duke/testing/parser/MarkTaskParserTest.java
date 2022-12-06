@@ -1,48 +1,45 @@
 package duke.testing.parser;
-import duke.parser.DeleteParser;
 import duke.parser.MarkTaskParser;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class MarkTaskParserTest {
     public MarkTaskParserTest() {
 
     }
+    private MarkTaskParser parser;
+    @BeforeEach
+    void setUp() {
+        parser = new MarkTaskParser();
+    }
     @Test
-    public void TestCase1() { //test normal
-        String input = "delete 1";
-        MarkTaskParser parser = new MarkTaskParser();
+    public void getData_normal_writtenCorrectly() { //test normal
+        String input = "1";
         parser.getData(input);
         assertEquals(parser.getIndex(), 1);
     }
     @Test
-    public void TestCase2() { //test big values
-        String input = "delete 999";
-        MarkTaskParser parser = new MarkTaskParser();
+    public void getData_bigValue_writtenCorrectly() { //test big values
+        String input = "999";
         parser.getData(input);
         assertEquals(parser.getIndex(), 999);
     }
     @Test
-    public void TestCase3() { //test boundary values
-        String input = "delete 0";
-        MarkTaskParser parser = new MarkTaskParser();
-        parser.getData(input);
-        assertEquals(parser.getIndex(), 0);
+    public void getData_0OrLess_IndexOutOfBoundsException() { //test boundary values
+        String[] inputs = { "0", "-1", "-999" };
+        for (String input: inputs) {
+            assertThrows(IndexOutOfBoundsException.class, () -> {
+                parser.getData(input);
+            });
+        }
     }
     @Test
-    public void TestCase4() { //test negative values
-        String input = "delete -1";
-        MarkTaskParser parser = new MarkTaskParser();
-        parser.getData(input);
-        assertEquals(parser.getIndex(), -1);
-    }
-    @Test
-    public void TestCase5() { //test invalid inputs
-        String input = "delete one";
-        MarkTaskParser parser = new MarkTaskParser();
-        parser.getData(input); //how to catch here
-        assertEquals(parser.getIndex(), "");
-        fail();
+    public void getData_invalidInteger_NumberFormatException() { //test invalid inputs
+        String input = "one";
+        assertThrows(NumberFormatException.class, () -> {
+            parser.getData(input);
+        });
     }
 }
