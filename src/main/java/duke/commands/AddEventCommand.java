@@ -16,7 +16,7 @@ public class AddEventCommand extends Command {
         this.endTime = endTime;
     }
     @Override
-    public void execute(TaskList arr, UI ui, Storage storage) throws InsufficientArgumentsException, IOException {
+    public void execute(TaskList arr, UI ui, Storage storage) throws IOException {
         addEvent(this.name, this.startTime, this.endTime, arr, ui);
         storage.save(arr);
     }

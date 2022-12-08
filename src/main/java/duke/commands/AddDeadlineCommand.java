@@ -13,7 +13,7 @@ public class AddDeadlineCommand extends Command {
         this.deadline = deadline;
     }
     @Override
-    public void execute(TaskList arr, UI ui, Storage storage) throws InsufficientArgumentsException, IOException {
+    public void execute(TaskList arr, UI ui, Storage storage) throws IOException {
         addDeadline(name, deadline, arr, ui);
         storage.save(arr);
     }

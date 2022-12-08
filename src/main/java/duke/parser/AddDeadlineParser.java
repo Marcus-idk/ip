@@ -1,4 +1,7 @@
 package duke.parser;
+import duke.UnrecognizedCommandException;
+
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 public class AddDeadlineParser { //deadline wash dishes /by 2 12 2002 1200
     private String name;
@@ -6,9 +9,13 @@ public class AddDeadlineParser { //deadline wash dishes /by 2 12 2002 1200
     public AddDeadlineParser() {
 
     }
-    public void getData(String str) {
+    public void getData(String str) throws UnrecognizedCommandException {
         this.name = getNameFromData(str);
-        this.deadline = getDeadlineFromData(str); //error here
+        try {
+            this.deadline = getDeadlineFromData(str); //error her
+        } catch (DateTimeException | NumberFormatException e) {
+            throw new UnrecognizedCommandException();
+        }
     }
     public String getNameFromData(String str) {
         String name = str.split("/by")[0].trim();

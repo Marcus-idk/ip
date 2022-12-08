@@ -22,7 +22,7 @@ public class Duke { //the duke class that runs the textbot program
             this.runProgram();
         } catch (FileNotFoundException e) {
             ui.fileNotFound();
-        } catch (InsufficientArgumentsException | UnrecognizedCommandException e) {
+        } catch (UnrecognizedCommandException e) {
             ui.indexOutOfBounds();
             ui.or();
             ui.unrecognizedCommand();
@@ -38,7 +38,7 @@ public class Duke { //the duke class that runs the textbot program
                 String commandString = ui.readCommand();
                 Command command = parser.parse(commandString);
                 command.execute(task, ui, storage);
-            } catch (IndexOutOfBoundsException | InsufficientArgumentsException | NumberFormatException |
+            } catch (IndexOutOfBoundsException | NumberFormatException |
                      UnrecognizedCommandException e) {
                 ui.indexOutOfBounds();
                 ui.or();

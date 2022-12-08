@@ -10,7 +10,7 @@ public class AddToDoCommand extends Command {
         this.name = name;
     }
     @Override
-    public void execute(TaskList arr, UI ui, Storage storage) throws InsufficientArgumentsException, IOException {
+    public void execute(TaskList arr, UI ui, Storage storage) throws IOException {
         addToDo(this.name, arr, ui);
         storage.save(arr);
     }

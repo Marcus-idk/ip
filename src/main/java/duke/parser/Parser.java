@@ -1,14 +1,12 @@
 package duke.parser;
-import duke.InsufficientArgumentsException;
 import duke.UnrecognizedCommandException;
 import duke.commands.*;
-import duke.parser.*;
 
 import java.io.IOException;
 public class Parser { //the class that takes in input Strings by the user
     public Parser() {
     }
-    public Command parse(String cmd) throws InsufficientArgumentsException, IOException, UnrecognizedCommandException {
+    public Command parse(String cmd) throws IOException, UnrecognizedCommandException {
         String[] split = cmd.split(" ", 2);
         String commandType = split[0].trim();
         String commandDetails = "";

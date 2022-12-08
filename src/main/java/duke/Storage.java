@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Storage {
     private TaskList arr = new TaskList();
     private String path;
-    public Storage(String filePath, Parser parser, UI ui) throws IOException, UnrecognizedCommandException, InsufficientArgumentsException {
+    public Storage(String filePath, Parser parser, UI ui) throws IOException, UnrecognizedCommandException {
         File data = new File(filePath);
         path = filePath;
         Scanner reader = new Scanner(data);

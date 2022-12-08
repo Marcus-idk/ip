@@ -1,72 +1,45 @@
 package duke.testing.parser;
+import duke.UnrecognizedCommandException;
 import duke.parser.AddEventParser;
-import duke.parser.DeleteParser;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 public class AddEventParserTest {
     public AddEventParserTest() {
 
     }
+    private AddEventParser parser;
+    @BeforeEach
+    void setUp() {
+        parser = new AddEventParser();
+    }
     @Test
-    public void TestCase1() { //normal test
+    public void TestCase1() throws UnrecognizedCommandException { //normal test
         String input = "eat /at 4 12 2022 1200 - 5 12 2022 1200";
-        AddEventParser parser = new AddEventParser();
         parser.getData(input);
-        String name = parser.getName();
-        LocalDateTime startTime = parser.getStartTime();
-        LocalDateTime endTime = parser.getEndTime();
         String expectedName = "eat";
         LocalDateTime expectedStartTime = LocalDateTime.of(2022, 12, 4, 12, 0);
         LocalDateTime expectedEndTime = LocalDateTime.of(2022, 12, 5, 12, 0);
-        assertEquals(name, expectedName);
-        assertEquals(startTime, expectedStartTime);
-        assertEquals(endTime, expectedEndTime);
+        assertEquals(parser.getName(), expectedName);
+        assertEquals(parser.getStartTime(), expectedStartTime);
+        assertEquals(parser.getEndTime(), expectedEndTime);
     }
     @Test
-    public void TestCase2() { //weirder tests
+    public void TestCase2() throws UnrecognizedCommandException { //weirder tests
         String input = "drin kk 123 bottl : 1 3 /at 4 12 2022 1200 - 5 12 2025 1200";
-        AddEventParser parser = new AddEventParser();
         parser.getData(input);
-        String name = parser.getName();
-        LocalDateTime startTime = parser.getStartTime();
-        LocalDateTime endTime = parser.getEndTime();
         String expectedName = "drin kk 123 bottl : 1 3";
         LocalDateTime expectedStartTime = LocalDateTime.of(2022, 12, 4, 12, 0);
         LocalDateTime expectedEndTime = LocalDateTime.of(2025, 12, 5, 12, 0);
-        assertEquals(name, expectedName);
-        assertEquals(startTime, expectedStartTime);
-        assertEquals(endTime, expectedEndTime);
+        assertEquals(parser.getName(), expectedName);
+        assertEquals(parser.getStartTime(), expectedStartTime);
+        assertEquals(parser.getEndTime(), expectedEndTime);
     }
     @Test
     public void TestCase3() { //inversed time
-        String input = "eat /at 5 12 2022 1200 - 4 12 2025 1200";
-        AddEventParser parser = new AddEventParser();
-        parser.getData(input);
-        String name = parser.getName();
-        LocalDateTime startTime = parser.getStartTime();
-        LocalDateTime endTime = parser.getEndTime();
-        String expectedName = "eat";
-        LocalDateTime expectedStartTime = LocalDateTime.of(2022, 12, 5, 12, 0);
-        LocalDateTime expectedEndTime = LocalDateTime.of(2025, 12, 4, 12, 0);
-        assertEquals(name, expectedName);
-        assertEquals(startTime, expectedStartTime);
-        assertEquals(endTime, expectedEndTime);
-    }
-    @Test
-    public void TestCase4() { //double "at"s, throw error
-        String input = "at /at /at 5 12 2022 1200 - 4 12 2025 1200";
-        AddEventParser parser = new AddEventParser();
-        parser.getData(input);
-        String name = parser.getName();
-        LocalDateTime startTime = parser.getStartTime();
-        LocalDateTime endTime = parser.getEndTime();
-        String expectedName = "eat";
-        LocalDateTime expectedStartTime = LocalDateTime.of(2022, 12, 5, 12, 0);
-        LocalDateTime expectedEndTime = LocalDateTime.of(2025, 12, 4, 12, 0);
-        assertEquals(name, expectedName);
-        assertEquals(startTime, expectedStartTime);
-        assertEquals(endTime, expectedEndTime);
+        String input = "eat /at 5 12 2025 1200 - 4 12 2022 1200";
+        assertThrows(UnrecognizedCommandException.class, () -> parser.getData(input));
     }
 }
