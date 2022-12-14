@@ -1,8 +1,6 @@
 package duke.parser;
-import duke.UnrecognizedCommandException;
+import duke.InvalidInputException;
 
-import java.sql.SQLOutput;
-import java.time.Duration;
 import java.time.LocalDateTime;
 public class AddEventParser { //event wash /at 6 12 2022 0600 - 8 12 2022 0800
     private String name;
@@ -11,20 +9,20 @@ public class AddEventParser { //event wash /at 6 12 2022 0600 - 8 12 2022 0800
     public AddEventParser() {
 
     }
-    public void getData(String str) throws UnrecognizedCommandException {
+    public void getData(String str) throws InvalidInputException {
         this.name = getNameFromData(str);
         LocalDateTime[] eventTimes = getStartAndEndTime(str);
         this.startTime = eventTimes[0];
         this.endTime = eventTimes[1];
         if (this.endTime.isBefore(this.startTime)) {
-            throw new UnrecognizedCommandException();
+            throw new InvalidInputException();
         }
     }
-    public String getNameFromData(String str) {
+    private String getNameFromData(String str) {
         String name = str.split("/at")[0].trim();
         return name;
     }
-    public LocalDateTime[] getStartAndEndTime(String str) {
+    private LocalDateTime[] getStartAndEndTime(String str) {
         String afterAt = str.split("/at", 2)[1];
         String[] split = afterAt.split("-", 2);
         String[] start = split[0].trim().split(" ");

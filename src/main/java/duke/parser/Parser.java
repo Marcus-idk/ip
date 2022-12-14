@@ -1,12 +1,12 @@
 package duke.parser;
-import duke.UnrecognizedCommandException;
+import duke.InvalidInputException;
 import duke.commands.*;
 
 import java.io.IOException;
 public class Parser { //the class that takes in input Strings by the user
     public Parser() {
     }
-    public Command parse(String cmd) throws IOException, UnrecognizedCommandException {
+    public Command parse(String cmd) throws IOException, InvalidInputException {
         String[] split = cmd.split(" ", 2);
         String commandType = split[0].trim();
         String commandDetails = "";
@@ -36,7 +36,7 @@ public class Parser { //the class that takes in input Strings by the user
                 p.getData(commandDetails);
                 return new AddEventCommand(p.getName(), p.getStartTime(), p.getEndTime());
             }
-            else throw new UnrecognizedCommandException();
+            else throw new InvalidInputException();
         } else if (isMarkTask(commandType)) {
             MarkTaskParser p = new MarkTaskParser();
             p.getData(commandDetails);

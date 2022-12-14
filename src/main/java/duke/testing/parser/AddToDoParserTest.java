@@ -1,5 +1,5 @@
 package duke.testing.parser;
-import duke.UnrecognizedCommandException;
+import duke.InvalidInputException;
 import duke.parser.AddToDoParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,13 +16,13 @@ public class AddToDoParserTest {
         parser = new AddToDoParser();
     }
     @Test
-    public void getData_normal_writtenCorrectly() throws UnrecognizedCommandException { //normal test
+    public void getData_normal_writtenCorrectly() throws InvalidInputException { //normal test
         String input = "Wash Clothes";
         parser.getData(input);
         assertEquals(parser.getName(), "Wash Clothes");
     }
     @Test
-    public void getData_weird_UnrecognizedCommandException() throws UnrecognizedCommandException { //weird tests, but should still work
+    public void getData_weird_writtenCorrectly() throws InvalidInputException { //weird tests, but should still work
         String input = "todo m  o p o";
         parser.getData(input);
         assertEquals(parser.getName(), "todo m  o p o");
@@ -30,6 +30,6 @@ public class AddToDoParserTest {
     @Test
     public void getData_emptyString_UnrecognizedCommandException() { //boundary tests, should return error
         String input = " ";
-        assertThrows(UnrecognizedCommandException.class, () -> parser.getData(input));
+        assertThrows(InvalidInputException.class, () -> parser.getData(input));
     }
 }

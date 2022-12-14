@@ -7,7 +7,7 @@ public class MarkTaskCommand extends Command {
         this.index = index;
     }
     @Override
-    public void execute(TaskList arr, UI ui, Storage storage) throws IOException {
+    public void execute(TaskList arr, UI ui, Storage storage) throws savedFileNotFoundException {
         markTask(index, arr, ui);
         storage.save(arr);
     }

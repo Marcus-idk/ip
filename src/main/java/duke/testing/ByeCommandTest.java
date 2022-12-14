@@ -22,7 +22,7 @@
 //
 //    }
 //    private class StorageStub extends Storage {
-//        public StorageStub(String filePath, Parser parser, UI ui) throws IOException, UnrecognizedCommandException, InsufficientArgumentsException {
+//        public StorageStub(String filePath, Parser parser, UI ui) throws IOException, InvalidInputException, InsufficientArgumentsException {
 //            super(filePath, parser, ui);
 //        }
 //    }
@@ -32,7 +32,7 @@
 //    private class ParserStub extends Parser {
 //        public
 //    }
-//    @Test public void execute_normal_writtenCorrectly() throws IOException, UnrecognizedCommandException, InsufficientArgumentsException {
+//    @Test public void execute_normal_writtenCorrectly() throws IOException, InvalidInputException, InsufficientArgumentsException {
 //        command.execute(new TaskListStub(), new UIStub(), new StorageStub("hi", ));
 //    }
 //}

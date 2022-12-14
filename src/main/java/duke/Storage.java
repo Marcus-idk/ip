@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Storage {
     private TaskList arr = new TaskList();
     private String path;
-    public Storage(String filePath, Parser parser, UI ui) throws IOException, UnrecognizedCommandException {
+    public Storage(String filePath, Parser parser, UI ui) throws IOException, InvalidInputException {
         File data = new File(filePath);
         path = filePath;
         Scanner reader = new Scanner(data);
@@ -35,17 +35,21 @@ public class Storage {
     public TaskList getData() {
         return this.arr;
     }
-    public void save(TaskList arr) throws IOException { //index, name, marked, type of task
-        FileWriter myWriter = new FileWriter(this.path);
-        for (int i = 0; i < arr.size(); i++) {
-            if (arr.get(i).getType().equals("D")) {
-                myWriter.write(arr.get(i).toString() + "\n");
-            } else if (arr.get(i).getType().equals("E")) {
-                myWriter.write(arr.get(i).toString() + "\n");
-            } else {
-                myWriter.write(arr.get(i).toString() + "\n");
+    public void save(TaskList arr) throws savedFileNotFoundException {
+        try {
+            FileWriter myWriter = new FileWriter(this.path);
+            for (int i = 0; i < arr.size(); i++) {
+                if (arr.get(i).getType().equals("D")) {
+                    myWriter.write(arr.get(i).toString() + "\n");
+                } else if (arr.get(i).getType().equals("E")) {
+                    myWriter.write(arr.get(i).toString() + "\n");
+                } else {
+                    myWriter.write(arr.get(i).toString() + "\n");
+                }
             }
+            myWriter.close();
+        } catch (IOException e) {
+            throw new savedFileNotFoundException();
         }
-        myWriter.close();
     }
 }

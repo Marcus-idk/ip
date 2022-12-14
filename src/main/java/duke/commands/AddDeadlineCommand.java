@@ -1,7 +1,6 @@
 package duke.commands;
 import duke.tasks.Deadline;
 import duke.tasks.Task;
-import java.io.IOException;
 import java.time.LocalDateTime;
 
 import duke.*;
@@ -13,7 +12,7 @@ public class AddDeadlineCommand extends Command {
         this.deadline = deadline;
     }
     @Override
-    public void execute(TaskList arr, UI ui, Storage storage) throws IOException {
+    public void execute(TaskList arr, UI ui, Storage storage) throws savedFileNotFoundException {
         addDeadline(name, deadline, arr, ui);
         storage.save(arr);
     }

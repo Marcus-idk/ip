@@ -1,4 +1,5 @@
 package duke.testing.parser;
+import duke.InvalidInputException;
 import duke.parser.UnMarkTaskParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -15,13 +16,13 @@ public class UnMarkTaskParserTest {
         parser = new UnMarkTaskParser();
     }
     @Test
-    public void getData_normal_writtenCorrectly() { //test normal
+    public void getData_normal_writtenCorrectly() throws InvalidInputException{ //test normal
         String input = "1";
         parser.getData(input);
         assertEquals(parser.getIndex(), 1);
     }
     @Test
-    public void getData_bigValue_writtenCorrectly() { //test big values
+    public void getData_bigValue_writtenCorrectly() throws InvalidInputException { //test big values
         String input = "999";
         parser.getData(input);
         assertEquals(parser.getIndex(), 999);
@@ -36,9 +37,9 @@ public class UnMarkTaskParserTest {
         }
     }
     @Test
-    public void getData_invalidInteger_NumberFormatException() { //test invalid inputs
+    public void getData_invalidInteger_InvalidInputException() { //test invalid inputs
         String input = "one";
-        assertThrows(NumberFormatException.class, () -> {
+        assertThrows(InvalidInputException.class, () -> {
             parser.getData(input);
         });
     }

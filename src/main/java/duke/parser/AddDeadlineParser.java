@@ -1,5 +1,5 @@
 package duke.parser;
-import duke.UnrecognizedCommandException;
+import duke.InvalidInputException;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
@@ -9,19 +9,19 @@ public class AddDeadlineParser { //deadline wash dishes /by 2 12 2002 1200
     public AddDeadlineParser() {
 
     }
-    public void getData(String str) throws UnrecognizedCommandException {
+    public void getData(String str) throws InvalidInputException {
         this.name = getNameFromData(str);
         try {
             this.deadline = getDeadlineFromData(str); //error her
         } catch (DateTimeException | NumberFormatException e) {
-            throw new UnrecognizedCommandException();
+            throw new InvalidInputException();
         }
     }
-    public String getNameFromData(String str) {
+    private String getNameFromData(String str) {
         String name = str.split("/by")[0].trim();
         return name;
     }
-    public LocalDateTime getDeadlineFromData(String str) {
+    private LocalDateTime getDeadlineFromData(String str) {
         String afterBy = str.split("/by")[1];
         String[] split = afterBy.trim().split(" ");
         int day = Integer.parseInt(split[0].trim());

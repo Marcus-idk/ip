@@ -1,5 +1,5 @@
 package duke.testing.parser;
-import duke.UnrecognizedCommandException;
+import duke.InvalidInputException;
 import duke.parser.AddDeadlineParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ public class AddDeadlineParserTest {
         parser = new AddDeadlineParser();
     }
     @Test
-    public void getData_normal_writtenCorrectly() throws UnrecognizedCommandException { //normal test
+    public void getData_normal_writtenCorrectly() throws InvalidInputException { //normal test
         String input = "eat /by 4 12 2022 1200";
         parser.getData(input);
         String expectedName = "eat";
@@ -25,7 +25,7 @@ public class AddDeadlineParserTest {
         assertEquals(parser.getDeadline(), expectedDatetime);
     }
     @Test
-    public void getData_weird_writtenCorrectly() throws UnrecognizedCommandException { //weirder tests
+    public void getData_weird_writtenCorrectly() throws InvalidInputException { //weirder tests
         String input = "e a t buffet :) /by 4 12 2040 1930";
         parser.getData(input);
         String expectedName = "e a t buffet :)";
@@ -36,11 +36,11 @@ public class AddDeadlineParserTest {
     @Test
     public void getData_negativeValues_UnrecognizedCommandException() { //negative values
         String input = "e a t buffet :) /by -4 12 2040 -1930";
-        assertThrows(UnrecognizedCommandException.class, () -> parser.getData(input));
+        assertThrows(InvalidInputException.class, () -> parser.getData(input));
     }
     @Test
     public void getData_completelyWrong_UnrecognizedCommandException() { //a completely wrong input
         String input = "eat /by june /by 4th dec lastyear 1930";
-        assertThrows(UnrecognizedCommandException.class, () -> parser.getData(input));
+        assertThrows(InvalidInputException.class, () -> parser.getData(input));
     }
 }
