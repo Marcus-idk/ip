@@ -3,7 +3,7 @@ plugins {
     id 'application'
 }
 
-group 'seedu.duke'
+group 'duke'
 version '0.1.0'
 
 repositories {
@@ -12,9 +12,18 @@ repositories {
 
 application {
     // Change this to your main class.
-    mainClassName = "seedu.duke.Duke"
+    mainClassName = "duke.Main"
 }
 
 run {
     standardInput = System.in
+}
+
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    testImplementation 'org.mockito:mockito-core:4.1.0'
 }

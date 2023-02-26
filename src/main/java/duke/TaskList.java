@@ -6,6 +6,7 @@ import duke.tasks.Task;
 import java.util.ArrayList;
 
 public class TaskList {
+    public Object get;
     private ArrayList<Task> arr = new ArrayList<>();
     public TaskList() {
 

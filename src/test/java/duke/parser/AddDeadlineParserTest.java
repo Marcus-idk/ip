@@ -1,4 +1,4 @@
-package duke.testing.parser;
+package parser;
 import duke.InvalidInputException;
 import duke.parser.AddDeadlineParser;
 import org.junit.jupiter.api.BeforeEach;

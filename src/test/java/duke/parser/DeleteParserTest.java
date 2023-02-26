@@ -1,19 +1,19 @@
-package duke.testing.parser;
+package parser;
 import duke.InvalidInputException;
-import duke.parser.MarkTaskParser;
+import duke.parser.DeleteParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class MarkTaskParserTest {
-    public MarkTaskParserTest() {
+public class DeleteParserTest {
+    public DeleteParserTest() {
 
     }
-    private MarkTaskParser parser;
+    private DeleteParser parser;
     @BeforeEach
     void setUp() {
-        parser = new MarkTaskParser();
+        parser = new DeleteParser();
     }
     @Test
     public void getData_normal_writtenCorrectly() throws InvalidInputException { //test normal
@@ -29,7 +29,7 @@ public class MarkTaskParserTest {
     }
     @Test
     public void getData_0OrLess_IndexOutOfBoundsException() { //test boundary values
-        String[] inputs = { "0", "-1", "-999" };
+        String[] inputs = { "0", "-1", "-999"};
         for (String input: inputs) {
             assertThrows(IndexOutOfBoundsException.class, () -> {
                 parser.getData(input);

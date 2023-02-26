@@ -12,7 +12,6 @@ public class DeleteTaskCommand extends Command {
         storage.save(arr);
     }
     public static void deleteTask(int index, TaskList list, UI ui) {
-        String s = list.get(index - 1).getDescription();
         list.remove(index - 1);
         ui.deleteTask(index, list);
     }

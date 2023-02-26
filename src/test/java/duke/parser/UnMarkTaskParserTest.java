@@ -1,22 +1,22 @@
-package duke.testing.parser;
+package parser;
 import duke.InvalidInputException;
-import duke.parser.DeleteParser;
+import duke.parser.UnMarkTaskParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class DeleteParserTest {
-    public DeleteParserTest() {
+public class UnMarkTaskParserTest {
+    public UnMarkTaskParserTest() {
 
     }
-    private DeleteParser parser;
+    private UnMarkTaskParser parser;
     @BeforeEach
     void setUp() {
-        parser = new DeleteParser();
+        parser = new UnMarkTaskParser();
     }
     @Test
-    public void getData_normal_writtenCorrectly() throws InvalidInputException { //test normal
+    public void getData_normal_writtenCorrectly() throws InvalidInputException{ //test normal
         String input = "1";
         parser.getData(input);
         assertEquals(parser.getIndex(), 1);
