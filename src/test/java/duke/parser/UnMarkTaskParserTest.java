@@ -1,4 +1,4 @@
-package parser;
+package duke.parser;
 import duke.InvalidInputException;
 import duke.parser.UnMarkTaskParser;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,10 +28,10 @@ public class UnMarkTaskParserTest {
         assertEquals(parser.getIndex(), 999);
     }
     @Test
-    public void getData_0OrLess_IndexOutOfBoundsException() { //test boundary values
+    public void getData_0OrLess_InvalidInputException() { //test boundary values
         String[] inputs = { "0", "-1", "-999"};
         for (String input: inputs) {
-            assertThrows(IndexOutOfBoundsException.class, () -> {
+            assertThrows(InvalidInputException.class, () -> {
                 parser.getData(input);
             });
         }
