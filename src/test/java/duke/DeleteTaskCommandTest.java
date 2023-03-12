@@ -9,26 +9,26 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.mockito.Mockito;
-class TaskListStub extends TaskList {
-    private ArrayList<Task> arr;
-    public TaskListStub(ArrayList<Task> arr) {
-        this.arr = arr;
-    }
-    public Task get(int index) {
-        return arr.get(index);
-    }
-    public void remove(int index) {
-        arr.remove(index);
-    }
-    public int size() {
-        return arr.size();
-    }
-}
 public class DeleteTaskCommandTest {
+    class TaskListStub extends TaskList {
+        private ArrayList<Task> arr;
+        public TaskListStub(ArrayList<Task> arr) {
+            this.arr = arr;
+        }
+        public Task get(int index) {
+            return arr.get(index);
+        }
+        public void remove(int index) {
+            arr.remove(index);
+        }
+        public int size() {
+            return arr.size();
+        }
+    }
     private UI ui;
     private Storage storage;
     @BeforeEach
-    void f() {
+    void init() {
         ui = Mockito.mock(UI.class);
         storage = Mockito.mock(Storage.class);
     }
