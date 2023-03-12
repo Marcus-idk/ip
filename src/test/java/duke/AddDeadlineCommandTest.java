@@ -3,7 +3,6 @@ import duke.commands.AddDeadlineCommand;
 import duke.commands.Command;
 import duke.tasks.Deadline;
 import duke.tasks.Task;
-import duke.tasks.ToDo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -13,15 +12,15 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AddDeadlineCommandTest {
-    class TaskListStub extends TaskList {
-        private ArrayList<Task> arr;
-        public TaskListStub(ArrayList<Task> arr) {
+    class TaskListStub<T extends Task> extends TaskList {
+        private ArrayList<T> arr;
+        public TaskListStub(ArrayList<T> arr) {
             this.arr = arr;
         }
-        public Task get(int index) {
+        public T get(int index) {
             return arr.get(index);
         }
-        public void add(Task task) { arr.add(task); }
+        public void add(Task task) { arr.add((T) task); }
         public int size() {
             return arr.size();
         }
@@ -59,12 +58,12 @@ public class AddDeadlineCommandTest {
         command2.execute(taskList, ui, storage); //add second task
         assertEquals(taskList.size(), 2);
     }
-//    @Test
-//    public void addDeadlineCommand_taskDate_success() throws InvalidInputException, IOException {
-//        ArrayList<Task> arr = new ArrayList<>();
-//        TaskListStub taskList = new TaskListStub(arr);
-//        Command command1 = new AddDeadlineCommand("jia123", LocalDateTime.of(2022, 12, 4, 12, 0));
-//        command1.execute(taskList, ui, storage);
-//        assertEquals(taskList.get(0).getTime(), "jia123");
-//    }
+    @Test
+    public void addDeadlineCommand_taskDate_success() throws InvalidInputException, IOException {
+        ArrayList<Deadline> arr = new ArrayList<>();
+        TaskListStub taskList = new TaskListStub(arr);
+        Command command1 = new AddDeadlineCommand("jia123", LocalDateTime.of(2022, 12, 4, 12, 0));
+        command1.execute(taskList, ui, storage);
+        assertEquals(taskList.get(0)., "jia123");
+    }
 }
