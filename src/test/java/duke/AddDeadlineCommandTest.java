@@ -35,7 +35,7 @@ public class AddDeadlineCommandTest {
     @Test
     public void addDeadlineCommand_addOneTaskSize_success() throws InvalidInputException, IOException {
         ArrayList<Task> arr = new ArrayList<>();
-        TaskListStub taskList = new TaskListStub(arr);
+        TaskListStub<Deadline> taskList = new TaskListStub(arr);
         Command command = new AddDeadlineCommand("Dance", LocalDateTime.of(2022, 12, 4, 12, 0));
         command.execute(taskList, ui, storage);
         assertEquals(taskList.size(), 1);
@@ -43,7 +43,7 @@ public class AddDeadlineCommandTest {
     @Test
     public void addDeadlineCommand_addOneTaskType_success() throws InvalidInputException, IOException {
         ArrayList<Task> arr = new ArrayList<>();
-        TaskListStub taskList = new TaskListStub(arr);
+        TaskListStub<Deadline> taskList = new TaskListStub(arr);
         Command command = new AddDeadlineCommand("Dance", LocalDateTime.of(2022, 12, 4, 12, 0));
         command.execute(taskList, ui, storage);
         assertEquals(taskList.get(0).getType(), new Deadline("123",LocalDateTime.of(2022, 12, 4, 12, 0)).getType());
@@ -51,7 +51,7 @@ public class AddDeadlineCommandTest {
     @Test
     public void addDeadlineCommand_addTwoTasksSize_success() throws InvalidInputException, IOException {
         ArrayList<Task> arr = new ArrayList<>();
-        TaskListStub taskList = new TaskListStub(arr);
+        TaskListStub<Deadline> taskList = new TaskListStub(arr);
         Command command1 = new AddDeadlineCommand("Dance", LocalDateTime.of(2022, 12, 4, 12, 0));
         command1.execute(taskList, ui, storage); //add first task
         Command command2 = new AddDeadlineCommand("Dance", LocalDateTime.of(2020, 12, 4, 12, 0));
@@ -60,10 +60,10 @@ public class AddDeadlineCommandTest {
     }
     @Test
     public void addDeadlineCommand_taskDate_success() throws InvalidInputException, IOException {
-        ArrayList<Deadline> arr = new ArrayList<>();
-        TaskListStub taskList = new TaskListStub(arr);
+        ArrayList<Task> arr = new ArrayList<>();
+        TaskListStub<Deadline> taskList = new TaskListStub(arr);
         Command command1 = new AddDeadlineCommand("jia123", LocalDateTime.of(2022, 12, 4, 12, 0));
         command1.execute(taskList, ui, storage);
-        assertEquals(taskList.get(0)., "jia123");
+        assertEquals(taskList.get(0).getTime(), LocalDateTime.of(2022, 12, 4, 12, 0));
     }
 }
