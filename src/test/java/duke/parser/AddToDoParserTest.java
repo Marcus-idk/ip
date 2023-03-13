@@ -1,4 +1,4 @@
-package parser;
+package duke.parser;
 import duke.InvalidInputException;
 import duke.parser.AddToDoParser;
 import org.junit.jupiter.api.BeforeEach;

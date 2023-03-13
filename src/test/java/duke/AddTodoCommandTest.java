@@ -32,23 +32,16 @@ public class AddTodoCommandTest {
         storage = Mockito.mock(Storage.class);
     }
     @Test
-    public void addTodoCommand_addOneTaskSize_success() throws InvalidInputException, IOException {
+    public void addTodoCommand_addOneTask_success() throws InvalidInputException, IOException {
         ArrayList<Task> arr = new ArrayList<>();
         TaskListStub taskList = new TaskListStub(arr);
         Command command = new AddToDoCommand("123");
         command.execute(taskList, ui, storage);
         assertEquals(taskList.size(), 1);
+        assertEquals(taskList.get(0).getType(), new ToDo(("123")).getType());
     }
     @Test
-    public void addTodoCommand_addOneTaskType_success() throws InvalidInputException, IOException {
-        ArrayList<Task> arr = new ArrayList<>();
-        TaskListStub taskList = new TaskListStub(arr);
-        Command command = new AddToDoCommand("123");
-        command.execute(taskList, ui, storage);
-        assertEquals(taskList.get(0).getType(), new ToDo("123").getType());
-    }
-    @Test
-    public void addTodoCommand_addTwoTasksSize_success() throws InvalidInputException, IOException {
+    public void addTodoCommand_addTwoTasks_success() throws InvalidInputException, IOException {
         ArrayList<Task> arr = new ArrayList<>();
         TaskListStub taskList = new TaskListStub(arr);
         Command command1 = new AddToDoCommand("123");

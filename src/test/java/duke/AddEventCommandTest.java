@@ -12,15 +12,16 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AddEventCommandTest {
-    class TaskListStub extends TaskList {
-        private ArrayList<Task> arr;
-        public TaskListStub(ArrayList<Task> arr) {
+    class TaskListStub<T extends Task> extends TaskList {
+        private ArrayList<T> arr;
+        public TaskListStub(ArrayList<T> arr) {
             this.arr = arr;
         }
-        public Task get(int index) {
+        public T get(int index) {
             return arr.get(index);
         }
-        public void add(Task task) { arr.add(task); }
+        @SuppressWarnings("unchecked")
+        public void add(Task task) { arr.add((T) task); }
         public int size() {
             return arr.size();
         }
@@ -33,37 +34,28 @@ public class AddEventCommandTest {
         storage = Mockito.mock(Storage.class);
     }
     @Test
-    public void addEventCommand_addOneTaskSize_success() throws InvalidInputException, IOException {
+    public void addEventCommand_addOneTask_success() throws InvalidInputException, IOException {
         ArrayList<Task> arr = new ArrayList<>();
-        TaskListStub taskList = new TaskListStub(arr);
-        Command command = new AddEventCommand("Dance", LocalDateTime.of(2022, 12, 4, 12, 0), LocalDateTime.of(2022, 12, 4, 12, 0));
+        TaskListStub<Event> taskList = new TaskListStub(arr);
+        LocalDateTime start = LocalDateTime.of(2022, 12, 4, 12, 0);
+        LocalDateTime end = LocalDateTime.of(2022, 12 ,5, 12, 0);
+        Command command = new AddEventCommand("Dance", start, end);
         command.execute(taskList, ui, storage);
         assertEquals(taskList.size(), 1);
+        assertEquals(taskList.get(0).getType(), new Event("123", start, end).getType());
+        assertEquals(taskList.get(0).getTime()[0], start);
+        assertEquals(taskList.get(0).getTime()[1], end);
     }
     @Test
-    public void addDeadlineCommand_addOneTaskType_success() throws InvalidInputException, IOException {
+    public void addEventCommand_addTwoTasksSize_success() throws InvalidInputException, IOException {
         ArrayList<Task> arr = new ArrayList<>();
         TaskListStub taskList = new TaskListStub(arr);
-        Command command = new AddEventCommand("Dance", LocalDateTime.of(2022, 12, 4, 12, 0), LocalDateTime.of(2022, 12, 4, 12, 0));
-        command.execute(taskList, ui, storage);
-        assertEquals(taskList.get(0).getType(), new Event("123",LocalDateTime.of(2022, 12, 4, 12, 0), LocalDateTime.of(2022, 12, 4, 12, 0)).getType());
-    }
-    @Test
-    public void addDeadlineCommand_addTwoTasksSize_success() throws InvalidInputException, IOException {
-        ArrayList<Task> arr = new ArrayList<>();
-        TaskListStub taskList = new TaskListStub(arr);
-        Command command1 = new AddEventCommand("Dance", LocalDateTime.of(2022, 12, 4, 12, 0), LocalDateTime.of(2022, 12, 4, 12, 0));
+        LocalDateTime start = LocalDateTime.of(2022, 12, 4, 12, 0);
+        LocalDateTime end = LocalDateTime.of(2022, 12 ,5, 12, 0);
+        Command command1 = new AddEventCommand("Dance", start, end);
         command1.execute(taskList, ui, storage); //add first task
-        Command command2 = new AddEventCommand("Dance", LocalDateTime.of(2020, 12, 4, 12, 0), LocalDateTime.of(2022, 12, 4, 12, 0));
+        Command command2 = new AddEventCommand("Dance", start, end);
         command2.execute(taskList, ui, storage); //add second task
         assertEquals(taskList.size(), 2);
     }
-//    @Test
-//    public void addDeadlineCommand_taskDate_success() throws InvalidInputException, IOException {
-//        ArrayList<Task> arr = new ArrayList<>();
-//        TaskListStub taskList = new TaskListStub(arr);
-//        Command command1 = new AddDeadlineCommand("jia123", LocalDateTime.of(2022, 12, 4, 12, 0));
-//        command1.execute(taskList, ui, storage);
-//        assertEquals(taskList.get(0).getTime(), "jia123");
-//    }
 }
