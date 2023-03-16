@@ -20,7 +20,7 @@ public class Deadline extends Task { //subtype of Task
         return "deadline";
     }
     @Override
-    public String toString() { //D,run,true,by 20 12 2022 1800
-        return this.getTime() + "," + this.getName() + "," + this.isMarked() + ",by " + this.datetime.format(DateTimeFormatter.ofPattern("dd MM yyyy HHmm"));
+    public String toString() {
+        return this.getType() + "," + this.getName() + "," + this.isMarked() + "," + this.datetime.format(DateTimeFormatter.ofPattern("dd MM yyyy HHmm"));
     }
 }

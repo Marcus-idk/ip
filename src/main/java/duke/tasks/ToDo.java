@@ -15,4 +15,3 @@ public class ToDo extends Task { //subtype of Task
         return this.getType() + "," + this.getName() + "," + this.isMarked();
     }
 }
-

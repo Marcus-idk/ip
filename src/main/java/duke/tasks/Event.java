@@ -19,10 +19,10 @@ public class Event extends Task {
     }
     @Override
     public String getType() {
-        return "T";
+        return "event";
     }
     @Override
-    public String toString() { //
-        return this.getName() + "," + this.isMarked() + "," + this.getType() + ",at " + this.dateTimeStart.format(DateTimeFormatter.ofPattern("dd MM yyyy HHmm")) + "," + this.dateTimeEnd.format(DateTimeFormatter.ofPattern("dd MM yyyy HHmm"));
+    public String toString() {
+        return this.getType() + "," + this.getName() + "," + this.isMarked() + "," + this.dateTimeStart.format(DateTimeFormatter.ofPattern("dd MM yyyy HHmm")) + "," + this.dateTimeEnd.format(DateTimeFormatter.ofPattern("dd MM yyyy HHmm"));
     }
 }
