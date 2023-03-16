@@ -14,7 +14,6 @@ public class Storage {
         File data = new File(filePath);
         path = filePath;
         Scanner reader = new Scanner(data);
-        int counter = 0;
         while (reader.hasNext()) { //TD,jump,true
             String dataString = reader.nextLine();
             String[] splitByComma = dataString.split(",");
@@ -29,7 +28,6 @@ public class Storage {
                 parser.parse(mark).execute(arr, ui, this);
             }
             c.execute(arr, ui, this);
-            counter++;
         }
     }
     public TaskList getData() {
