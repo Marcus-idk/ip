@@ -15,7 +15,7 @@ public class Event extends Task {
     }
     @Override
     public String getDescription() {
-        return "[D]" + super.getDescription() + ": from " + this.dateTimeStart.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + " till " + this.dateTimeEnd.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
+        return "[E]" + super.getDescription() + ": from " + this.dateTimeStart.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + " till " + this.dateTimeEnd.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
     }
     @Override
     public String getType() {
